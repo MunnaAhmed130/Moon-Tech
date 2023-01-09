@@ -2,9 +2,16 @@ import React from "react";
 import { useProducts } from "../context/ProductProvider";
 
 const About = () => {
-    const { data } = useProducts();
-    console.log(data);
-    return <h1 className="font-bold">About</h1>;
+    // const { state } = useProducts();
+    // console.log(state.products);
+    // const products = state.products;
+    return (
+        <div>
+            {/* {products.map((product) => {
+                console.log(product);
+            })} */}
+        </div>
+    );
 };
 
 export default About;

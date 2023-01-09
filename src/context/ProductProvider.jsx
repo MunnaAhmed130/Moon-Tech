@@ -5,6 +5,7 @@ import React, {
     useReducer,
     useState,
 } from "react";
+import { actionTypes } from "../state/ProductState/actionTypes";
 import {
     initialState,
     productReducer,
@@ -13,16 +14,24 @@ import {
 export const PRODUCTS_CONTEXT = createContext();
 
 const ProductProvider = ({ children }) => {
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
 
     const [state, dispatch] = useReducer(productReducer, initialState);
     useEffect(() => {
+        dispatch({ type: actionTypes.FETCHING_START });
         fetch("http://localhost:4000/all")
             .then((res) => res.json())
-            .then((data) => setData(data));
+            .then((data) =>
+                dispatch({ type: actionTypes.FETCHING_SUCCESS, payload: data })
+            )
+            .catch(() => {
+                dispatch({ type: actionTypes.FETCHING_ERROR });
+            });
     }, []);
-
-    const value = { data };
+    // console.log(state.products);
+    // const products = state.products;
+    const value = { state, dispatch };
+    // console.log(value);
     return (
         <PRODUCTS_CONTEXT.Provider value={value}>
             {children}

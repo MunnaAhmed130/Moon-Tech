@@ -1,7 +1,18 @@
 import React from "react";
+import ProductCard from "../components/ProductCard";
+import { useProducts } from "../context/ProductProvider";
 
 const Home = () => {
-    return <h1>Home</h1>;
+    const {
+        state: { products },
+    } = useProducts();
+    return (
+        <div className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4 max-w-7xl gap-14 mx-auto my-10">
+            {products.map((product) => (
+                <ProductCard product={product}></ProductCard>
+            ))}
+        </div>
+    );
 };
 
 export default Home;
