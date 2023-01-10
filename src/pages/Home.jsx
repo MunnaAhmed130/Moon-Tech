@@ -4,15 +4,34 @@ import { useProducts } from "../context/ProductProvider";
 
 const Home = () => {
     const {
-        state: { products },
+        state: { products, loading, error, cart },
     } = useProducts();
-    return (
-        <div className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4 max-w-7xl gap-14 mx-auto my-10">
-            {products.map((product) => (
-                <ProductCard product={product}></ProductCard>
-            ))}
-        </div>
-    );
+    console.log(cart);
+    let content;
+
+    let array = [1, 2, 3];
+    array.splice(1, 1);
+    console.log(array);
+
+    if (loading) {
+        content = <p>Loading</p>;
+    }
+
+    if (error) {
+        content = <p>something went wrong</p>;
+    }
+
+    if (!loading && !error && products.length === 0) {
+        content = <p>Nothing to show, product list is empty</p>;
+    }
+
+    if (!loading && !error && products.length) {
+        content = products.map((product) => (
+            <ProductCard product={product} key={product._id} />
+        ));
+    }
+
+    return <div className="">{content}</div>;
 };
 
 export default Home;
