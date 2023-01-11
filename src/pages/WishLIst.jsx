@@ -1,16 +1,14 @@
 import React from "react";
-import { BiListPlus } from "react-icons/bi";
-import { FaTrash } from "react-icons/fa";
 import { useProducts } from "../context/ProductProvider";
 import { actionTypes } from "../state/ProductState/actionTypes";
 
-const Cart = () => {
+const WishLIst = () => {
     const {
-        state: { loading, cart, error },
+        state: { loading, wishlist, error },
         dispatch,
     } = useProducts();
 
-    console.log(cart);
+    // console.log(cart);
     let content;
 
     if (loading) {
@@ -21,12 +19,12 @@ const Cart = () => {
         content = <p>something went wrong</p>;
     }
 
-    if (!loading && !error && cart.length === 0) {
+    if (!loading && !error && wishlist.length === 0) {
         content = <p>Nothing to show, product list is empty</p>;
     }
 
-    if (!loading && !error && cart.length) {
-        content = cart.map((product) => (
+    if (!loading && !error && wishlist.length) {
+        content = wishlist.map((product) => (
             <div className="shadow-lg rounded-3xl border  p-3 flex flex-col text-indigo-900 my-4">
                 <div className="h-52 w-52 mx-auto">
                     <img src={product.image} alt={product.model} />
@@ -47,23 +45,23 @@ const Cart = () => {
                         className="bg-indigo-500 rounded-full py-1 px-2 flex-1 text-white text-bold"
                         onClick={() =>
                             dispatch({
-                                type: actionTypes.REMOVE_FROM_CART,
-                                payload: cart.indexOf(product),
+                                type: actionTypes.ADD_TO_CART,
+                                payload: product,
                             })
                         }
                     >
-                        Remove from cart
+                        Add to cart
                     </button>
                     <button
                         className="bg-indigo-500 rounded-full py-1 px-2 flex-1 text-white text-bold"
                         onClick={() =>
                             dispatch({
-                                type: actionTypes.REMOVE_FROM_CART,
-                                payload: cart.indexOf(product),
+                                type: actionTypes.REMOVE_FROM_WISHLIST,
+                                payload: wishlist.indexOf(product),
                             })
                         }
                     >
-                        Buy Product
+                        Remove from wishlist
                     </button>
                     {/* <button
                         title="Add to wishlist"
@@ -83,4 +81,4 @@ const Cart = () => {
     );
 };
 
-export default Cart;
+export default WishLIst;

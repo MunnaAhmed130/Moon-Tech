@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
     // console.log(product._id);
     return (
         <div
-            className="shadow-lg rounded-3xl border  p-3 flex flex-col text-indigo-900 my-4"
+            className="shadow-lg rounded-3xl border  p-3 flex flex-col text-indigo-900 mt-4"
             key={product._id}
         >
             <div className="h-52 w-52 mx-auto">
@@ -40,6 +40,12 @@ const ProductCard = ({ product }) => {
                 <button
                     title="Add to wishlist"
                     className="bg-indigo-500  py-1 px-2 rounded-full"
+                    onClick={() => {
+                        dispatch({
+                            type: actionTypes.ADD_TO_WISHLIST,
+                            payload: product,
+                        });
+                    }}
                 >
                     <BiListPlus className="text-white" />
                 </button>

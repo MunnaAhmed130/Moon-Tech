@@ -5,6 +5,7 @@ export const initialState = {
     products: [],
     error: false,
     cart: [],
+    wishlist: [],
 };
 
 export const productReducer = (state, action) => {
@@ -34,6 +35,11 @@ export const productReducer = (state, action) => {
                 ...state,
                 cart: [...state.cart, action.payload],
             };
+        case actionTypes.ADD_TO_WISHLIST:
+            return {
+                ...state,
+                wishlist: [...state.wishlist, action.payload],
+            };
         case actionTypes.REMOVE_FROM_CART:
             return {
                 ...state,
@@ -41,6 +47,16 @@ export const productReducer = (state, action) => {
                     ...state.cart.filter(
                         (product) =>
                             state.cart.indexOf(product) != action.payload
+                    ),
+                ],
+            };
+        case actionTypes.REMOVE_FROM_WISHLIST:
+            return {
+                ...state,
+                wishlist: [
+                    ...state.wishlist.filter(
+                        (product) =>
+                            state.wishlist.indexOf(product) != action.payload
                     ),
                 ],
             };
