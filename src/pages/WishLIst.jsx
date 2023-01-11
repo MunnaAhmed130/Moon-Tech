@@ -75,7 +75,11 @@ const WishLIst = () => {
     }
 
     return (
-        <div className="grid grid-rows-1 md:grid-rows-2 grid-cols-1 md:grid-cols-2 gap-4 mt-4 ">
+        <div
+            className={`${
+                wishlist.length > 0 && `grid`
+            }  grid-rows-1 md:grid-rows-2 grid-cols-1 md:grid-cols-2 gap-4 mt-4 `}
+        >
             {content}
         </div>
     );
